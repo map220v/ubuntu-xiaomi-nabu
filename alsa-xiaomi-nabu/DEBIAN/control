@@ -1,0 +1,6 @@
+Package: alsa-xiaomi-nabu
+Version: 1.0
+Architecture: arm64
+Maintainer: map220v <map220v300@gmail.com>
+Depends: alsa-ucm-conf
+Description: Alsa UCM configurations for Xiaomi Pad 5

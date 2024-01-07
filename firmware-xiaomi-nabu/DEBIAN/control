@@ -1,0 +1,7 @@
+Package: firmware-xiaomi-nabu
+Version: 1.0
+Architecture: arm64
+Maintainer: map220v <map220v300@gmail.com>
+Conflicts: linux-firmware
+Replaces: linux-firmware
+Description: Firmware blobs for Xiaomi Pad 5
