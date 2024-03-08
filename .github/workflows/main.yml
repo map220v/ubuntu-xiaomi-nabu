@@ -29,12 +29,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+
+      - name: PATH variable
+        run: export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:\$PATH
+        
       - name: Install Dependencies
         run: sudo apt update && sudo apt install build-essential gcc-aarch64-linux-gnu bc flex bison 7zip kmod bash cpio binutils tar git wget dpkg libssl-dev
-
-
-
-
 
       - name: Cloning and patching then building a kernel
         run: git clone https://github.com/map220v/sm8150-mainline.git --branch nabu-${{ matrix.kernel }} --depth 1 linux && \
@@ -80,8 +80,7 @@ jobs:
 
 
       - name: Installing desktop environment and updating 
-        run: export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:\$PATH && \
-             export DEBIAN_FRONTEND=noninteractive && \
+        run: export DEBIAN_FRONTEND=noninteractive && \
              chroot rootdir apt update && apt upgrade -y &&apt install -y bash-completion sudo ssh nano u-boot-tools- ${{ matrix.desktop }} && apt install -y rmtfs protection-domain-mapper tqftpserv && \
              sed -i '/ConditionKernelVersion/d' rootdir/lib/systemd/system/pd-mapper.service && \
              cp *-xiaomi-nabu.deb rootdir/tmp/ && \
