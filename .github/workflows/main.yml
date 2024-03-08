@@ -36,19 +36,18 @@ jobs:
       - name: Install Dependencies
         run: sudo apt update && sudo apt install build-essential gcc-aarch64-linux-gnu bc flex bison 7zip kmod bash cpio binutils tar git wget dpkg libssl-dev
 
-      - name: Cloning and patching then building a kernel
-        working-directory: ./linux
-        run: git clone https://github.com/map220v/sm8150-mainline.git --branch nabu-${{ matrix.kernel }} --depth 1 linux && \
-             cd linux && \
-             echo 'CONFIG_CMDLINE="quiet splash"' >> ./arch/arm64/configs/sm8150.config
+      - name: Cloning kernel
+        run: git clone https://github.com/map220v/sm8150-mainline.git --branch nabu-${{ matrix.kernel }} --depth 1 linux
+        
+      - name: patching then building a kernel
+        working-directory: linux
+        run: echo 'CONFIG_CMDLINE="quiet splash"' >> ./arch/arm64/configs/sm8150.config
              make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig sm8150.config && \
              make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- && \
              mkdir ../linux-xiaomi-nabu/boot && \
              cp arch/arm64/boot/Image.gz ../linux-xiaomi-nabu/boot/vmlinuz-6.7.0-sm8150 && \
              cp arch/arm64/boot/dts/qcom/sm8150-xiaomi-nabu.dtb ../linux-xiaomi-nabu/boot/dtb-6.7.0-sm8150 && \
-             rm -rf ../linux-xiaomi-nabu/lib && \
-             make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_PATH=../linux-xiaomi-nabu modules_install && \
-             rm ../linux-xiaomi-nabu/lib/modules/**/build
+             make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_PATH=../linux-xiaomi-nabu modules_install
       - name: Build deb's for updating
         run: dpkg-deb --build --root-owner-group linux-xiaomi-nabu && \
              dpkg-deb --build --root-owner-group firmware-xiaomi-nabu && \
@@ -108,7 +107,10 @@ jobs:
              umount rootdir/dev && \
              umount rootdir && \
              rm -d rootdir && \
+             rm -rf ../linux-xiaomi-nabu/lib && \
+             rm ../linux-xiaomi-nabu/lib/modules/**/build
              rm -rf linux
+             
       - name: rootfs to 7z 
         run: 7zz a rootfs.7z rootfs.img
 
