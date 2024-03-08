@@ -13,7 +13,7 @@ VERSION="23.10"
 
 git clone https://github.com/map220v/sm8150-mainline.git --branch nabu-$2 --depth 1 linux
 cd linux
-echo 'CONFIG_CMDLINE="quiet splash"' >> ./arch/arm64/configs/sm8150.config
+sed -i 'CONFIG_CMDLINE="quiet splash"' ./arch/arm64/configs/sm8150.config
 make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- defconfig sm8150.config
 make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
 mkdir ../linux-xiaomi-nabu/boot
