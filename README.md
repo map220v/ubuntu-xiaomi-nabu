@@ -3,7 +3,7 @@ This repo contians scripts for automatic building of ubuntu rootfs and kernel fo
 
 # Where do i get needed files?
 Actually just go to the "Actions" tab, find one of latest builds and download file named **rootfs_(Desktop Environment you want)_(Kernel version you want)** 
-for update download file named **xiaomi-nabu-debs_(Kernel version you want)**
+<br>for update download file named **xiaomi-nabu-debs_(Kernel version you want)**
 
 # Update info
 - Unpack .zip you downloaded
