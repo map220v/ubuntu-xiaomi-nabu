@@ -8,14 +8,6 @@ fi
 
 VERSION="23.10"
 
-#DEPS dpkg, wget, binfmt support(or arm64 device), 7zip
-
-dpkg-deb --build --root-owner-group linux-xiaomi-nabu
-dpkg-deb --build --root-owner-group firmware-xiaomi-nabu
-dpkg-deb --build --root-owner-group alsa-xiaomi-nabu
-
-
-
 truncate -s 6G rootfs.img
 mkfs.ext4 rootfs.img
 mkdir rootdir
@@ -56,7 +48,7 @@ chroot rootdir apt update
 chroot rootdir apt upgrade -y
 
 #u-boot-tools breaks grub installation
-chroot rootdir apt install -y bash-completion sudo ssh nano u-boot-tools- ubuntu-desktop
+chroot rootdir apt install -y bash-completion sudo ssh nano u-boot-tools- $1
 
 #chroot rootdir gsettings set org.gnome.shell.extensions.dash-to-dock show-mounts-only-mounted true
 
@@ -68,7 +60,7 @@ chroot rootdir apt install -y rmtfs protection-domain-mapper tqftpserv
 #Remove check for "*-laptop"
 sed -i '/ConditionKernelVersion/d' rootdir/lib/systemd/system/pd-mapper.service
 
-cp *-xiaomi-nabu.deb rootdir/tmp/
+cp /home/runner/work/ubuntu-xiaomi-nabu/ubuntu-xiaomi-nabu/xiaomi-nabu-debs_$2/*-xiaomi-nabu.deb rootdir/tmp/
 chroot rootdir dpkg -i /tmp/linux-xiaomi-nabu.deb
 chroot rootdir dpkg -i /tmp/firmware-xiaomi-nabu.deb
 chroot rootdir dpkg -i /tmp/alsa-xiaomi-nabu.deb
