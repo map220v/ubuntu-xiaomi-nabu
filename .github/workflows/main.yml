@@ -55,7 +55,7 @@ jobs:
         with:
           pattern: xiaomi-nabu-debs*
       - name: Install Dependencies
-        run: sudo apt update && sudo apt install build-essential gcc-aarch64-linux-gnu bc flex bison 7zip kmod bash cpio binutils tar git wget dpkg libssl-dev
+        run: sudo apt update && sudo apt install unzip build-essential gcc-aarch64-linux-gnu bc flex bison 7zip kmod bash cpio binutils tar git wget dpkg libssl-dev
 
       - name: Build rootfs
         run: sudo sh nabu-rootfs_build.sh ${{ matrix.desktop }} ${{ matrix.kernel }}
