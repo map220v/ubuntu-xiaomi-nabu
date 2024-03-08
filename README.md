@@ -13,6 +13,8 @@ Actually just go to the "Actions" tab, find one of latest builds and download fi
   <br>**Second method**: grub-install and grub-mkconfig -o /boot/grub/grub.cfg
 
 # Install info
+- Unpack .zip you downloaded
+- Unpack extracted .7z (there you take rootfs.img)
 - rootfs.img must be flashed to partition named "linux"
 - Partition for efi boot must be named "esp"
 - Install grub using grub-install and grub-mkconfig -o /boot/grub/grub.cfg. If done from android make sure that efs partition mounted at /boot/efi, after generating grub.cfg change all of "/dev/block/" to "/dev/"
