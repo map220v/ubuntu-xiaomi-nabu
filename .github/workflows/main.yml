@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
             matrix:
-                version: [6.4, 6.6, 6.7]
+                version: [6.7, 6.8]
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -30,7 +30,7 @@ jobs:
         run: sudo apt update && sudo apt install build-essential gcc-aarch64-linux-gnu bc flex bison 7zip kmod bash cpio binutils tar git wget dpkg libssl-dev
 
       - name: Build kernel
-        run: sudo sh nabu-Kernel_build.sh ${{ matrix.version }}
+        run: sudo sh nabu-kernel_build.sh ${{ matrix.version }}
 
       - name: Upload deb packages
         uses: actions/upload-artifact@v4.0.0
@@ -46,7 +46,7 @@ jobs:
     strategy:
             matrix:
                 desktop: [ubuntu-desktop, lomiri]
-                kernel: [6.4, 6.6, 6.7]
+                kernel: [6.7, 6.8]
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
