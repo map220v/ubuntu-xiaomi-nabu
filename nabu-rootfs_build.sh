@@ -6,7 +6,7 @@ then
   exit
 fi
 
-VERSION="23.10"
+VERSION="24.04.4"
 
 truncate -s 6G rootfs.img
 mkfs.ext4 rootfs.img
@@ -22,7 +22,7 @@ mount --bind /dev/pts rootdir/dev/pts
 mount --bind /proc rootdir/proc
 mount --bind /sys rootdir/sys
 
-echo "nameserver 1.1.1.1" | tee rootdir/etc/resolv.conf
+echo "nameserver 223.5.5.5" | tee rootdir/etc/resolv.conf
 echo "xiaomi-nabu" | tee rootdir/etc/hostname
 echo "127.0.0.1 localhost
 127.0.1.1 xiaomi-nabu" | tee rootdir/etc/hosts
